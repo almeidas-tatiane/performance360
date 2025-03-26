@@ -41,24 +41,24 @@ jobs:
              sudo apt-get install tzdata
      - name: Preparing Environment
        run: |
-             sudo curl -O https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz 
-             sudo tar -xzf apache-jmeter-5.5.tgz
+             sudo curl -O https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz 
+             sudo tar -xzf apache-jmeter-5.6.3.tgz
              sudo wget -O jpgc-casutg-2.10.zip https://jmeter-plugins.org/files/packages/jpgc-casutg-2.10.zip
-             sudo unzip -o jpgc-casutg-2.10.zip -d apache-jmeter-5.5/
-             sudo wget -P apache-jmeter-5.5/lib/ext/ https://github.com/mderevyankoaqa/jmeter-influxdb2-listener-plugin/releases/download/v2.5/jmeter-plugins-influxdb2-listener-2.5.jar
+             sudo unzip -o jpgc-casutg-2.10.zip -d apache-jmeter-5.6.3/
+             sudo wget -P apache-jmeter-5.6.3/lib/ext/ https://github.com/mderevyankoaqa/jmeter-influxdb2-listener-plugin/releases/download/v2.5/jmeter-plugins-influxdb2-listener-2.5.jar
      - name: Run JMeter Scenario
-       run: sh /home/runner/work/perfarchautomate/perfarchautomate/apache-jmeter-5.5/bin/jmeter.sh -n -t /home/runner/work/perfarchautomate/perfarchautomate/PokeAPI.jmx 
+       run: sh /home/ubuntu/apps/apache-jmeter-5.6.3/bin/jmeter.sh -n -t /home/ubuntu/tests/PokeAPI.jmx 
              -JTargetConcurrency=${{ inputs.targetconcurrency }} -JRampUpTime=${{ inputs.rampuptime }} -JRampStepsCount=${{ inputs.rampstepscount }}
              -JTargetRateTime=${{ inputs.targetratetime }} -JThinkTime=${{ inputs.thinktime }} 
              -JAwsHost=3.145.94.205
              -JInfluxToken=oqvSAhnYuOUvIfKDr_7NqrH39VJxSN7Df5vZpYOcmVV0RquENyfPPqNEvVh_S3AFwmnsmO9eMU0uXJ9zNWczEg==
              -JInfluxOrg=performanceredteam -JInfluxBucket=performanceredteam
-             -l /home/runner/work/perfarchautomate/perfarchautomate/pokeapi.jtl
+             -l /home/ubuntu/tests/pokeapi.jtl
      - name: Generate HTML Report
-       run: sh /home/runner/work/perfarchautomate/perfarchautomate/apache-jmeter-5.5/bin/jmeter.sh -g /home/runner/work/perfarchautomate/perfarchautomate/pokeapi.jtl
-            -o /home/runner/work/perfarchautomate/perfarchautomate/reports
+       run: sh /home/ubuntu/tests/apache-jmeter-5.6.3/bin/jmeter.sh -g /home/ubuntu/tests/pokeapi.jtl
+            -o /home/ubuntu/tests/reports
      - name: Upload HTML Report
        uses: actions/upload-artifact@v4
        with:
          name: jmeter-test-results
-         path: /home/runner/work/perfarchautomate/perfarchautomate/reports
+         path: /home/ubuntu/tests/reports
