@@ -30,10 +30,8 @@ jobs:
  test-action:
    runs-on: ubuntu-latest
    steps:
-     - name: Cloning perfarchatomate repository
+     - name: Cloning performance repository
        uses: actions/checkout@main
-       with:
-           ref: pokeapi
      - name: Download dependencies
        run: |
              sudo apt-get install curl
