@@ -39,26 +39,24 @@ jobs:
              sudo apt-get install tzdata
      - name: Preparing Environment
        run: |
-             sudo mkdir apps
              sudo curl -O https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
              sudo tar -xzf apache-jmeter-5.6.3.tgz
              sudo wget -O jpgc-casutg-2.10.zip https://jmeter-plugins.org/files/packages/jpgc-casutg-2.10.zip
              sudo unzip -o jpgc-casutg-2.10.zip -d apache-jmeter-5.6.3/
              sudo wget -P apache-jmeter-5.6.3/lib/ext/ https://github.com/mderevyankoaqa/jmeter-influxdb2-listener-plugin/releases/download/v2.5/jmeter-plugins-influxdb2-listener-2.5.jar
-             sudo mkdir tests
      - name: Run JMeter Scenario
-       run: sh /home/ubuntu/apps/apache-jmeter-5.6.3/bin/jmeter.sh -n -t /home/ubuntu/tests/PokeAPI.jmx 
+       run: sh /home/runner/work/performance360/performance360/apache-jmeter-5.6.3/bin/jmeter.sh -n -t /home/runner/work/performance360/performance360/PokeAPI.jmx 
              -JTargetConcurrency=${{ inputs.targetconcurrency }} -JRampUpTime=${{ inputs.rampuptime }} -JRampStepsCount=${{ inputs.rampstepscount }}
              -JTargetRateTime=${{ inputs.targetratetime }} -JThinkTime=${{ inputs.thinktime }} 
              -JAwsHost=34.230.19.14
              -JInfluxToken=--xWu9VOMNGMhIbrPchoFJqhJAXQBKULZ22QCzZpkYDofychFSf1iSjLek_AxswCyTZHa04WuEBhyjieSxA_XQ==
              -JInfluxOrg=performanceAutomation -JInfluxBucket=performancetest
-             -l /home/ubuntu/tests/pokeapi.jtl
+             -l /home/runner/work/performance360/performance360/pokeapi.jtl
      - name: Generate HTML Report
-       run: sh /home/ubuntu/app/apache-jmeter-5.6.3/bin/jmeter.sh -g /home/ubuntu/tests/pokeapi.jtl
-            -o /home/ubuntu/tests/reports
+       run: sh /home/runner/work/performance360/performance360/apache-jmeter-5.6.3/bin/jmeter.sh -g /home/runner/work/performance360/performance360/pokeapi.jtl
+            -o /home/runner/work/performance360/performance360/reports
      - name: Upload HTML Report
        uses: actions/upload-artifact@v4
        with:
          name: jmeter-test-results
-         path: /home/ubuntu/tests/reports
+         path: /home/runner/work/performance360/performance360/reports
