@@ -55,7 +55,7 @@ jobs:
              -JInfluxOrg=performanceAutomation -JInfluxBucket=performancetest
              -l /home/ubuntu/tests/pokeapi.jtl
      - name: Generate HTML Report
-       run: sh /home/ubuntu/tests/apache-jmeter-5.6.3/bin/jmeter.sh -g /home/ubuntu/tests/pokeapi.jtl
+       run: sh /home/ubuntu/app/apache-jmeter-5.6.3/bin/jmeter.sh -g /home/ubuntu/tests/pokeapi.jtl
             -o /home/ubuntu/tests/reports
      - name: Upload HTML Report
        uses: actions/upload-artifact@v4
