@@ -40,7 +40,6 @@ jobs:
      - name: Preparing Environment
        run: |
              sudo mkdir apps
-             sudo cd apps
              sudo curl -O https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
              sudo tar -xzf apache-jmeter-5.6.3.tgz
              sudo wget -O jpgc-casutg-2.10.zip https://jmeter-plugins.org/files/packages/jpgc-casutg-2.10.zip
